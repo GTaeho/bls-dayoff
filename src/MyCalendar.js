@@ -16,17 +16,25 @@ import Modal from "react-bootstrap/Modal";
 function MyCalendar(props) {
   const [showModal, setShowModal] = useState(false);
   const [showDayoffCancelModal, setShowDayoffcancelModel] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [dateString, setDateString] = useState("");
+  const [editDayoffInfo, setEditDayoffInfo] = useState({
+    name: "",
+    oldDate: "",
+    newDate: "",
+  });
   const [accessToken, setAccessToken] = useState("");
   const [name, setName] = useState("");
 
   // 캘린더 레퍼런스 잡기
   const calRef = useRef();
 
+  const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
   const handleDayoffCloseModal = () => setShowDayoffcancelModel(false);
-  const handleShowModal = () => setShowModal(true);
   const handleShowDayoffCancelModal = () => setShowDayoffcancelModel(true);
+  const handleShowEditModal = () => setShowEditModal(true);
+  const handleCloseEditModal = () => setShowEditModal(false);
 
   // // 달력의 첫번째 날짜와 마지막 날짜 구하기
   // const getStartAndEndDate = () => {
@@ -241,7 +249,26 @@ function MyCalendar(props) {
       {/* 휴무취소 확인 모달 영역 끝 */}
 
       {/* 휴무수정 확인 모달 영역 시작 */}
-      
+      <Modal show={showEditModal} onHide={handleDayoffCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>휴무수정</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <p>
+            {editDayoffInfo.name}님의 {editDayoffInfo.oldDate} 의 휴무를 {editDayoffInfo.newDate} 로 바꾸시겠습니까?
+          </p>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseEditModal}>
+            아니요
+          </Button>
+          <Button variant="primary" onClick={handleCloseEditModal}>
+            수정확인
+          </Button>
+        </Modal.Footer>
+      </Modal>
       {/* 휴무수정 확인 모달 영역 끝 */}
 
       <div className="mypage-body">
@@ -264,6 +291,16 @@ function MyCalendar(props) {
                   console.log(
                     `name: ${name}, oldDate : ${oldDateString}, newDate : ${newDateString}`
                   );
+
+                  setEditDayoffInfo({
+                    name: name,
+                    oldDate: oldDateString,
+                    newDate: newDateString,
+                  });
+
+                  console.info(editDayoffInfo);
+
+                  handleShowEditModal();
                 }}
                 initialView="dayGrid"
                 duration={{ weeks: 3 }}

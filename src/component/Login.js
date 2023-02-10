@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 
 function Login(props) {
-  const [id, setId] = useState("");
-  const [passwd, setPasswd] = useState("");
+  // useState를 쓰고 input에서 onChange에서 setState를 쓰는 방식을 버리는
+  // 방식은 아래 youtube를 보고 useRef를 쓰는 방식으로 수정하였다.
+  // https://www.youtube.com/watch?v=GGo3MVBFr1A
+  const idRef = useRef();
+  const passwdRef = useRef();
+
+  // const [id, setId] = useState("");
+  // const [passwd, setPasswd] = useState("");
   // const [loadingSpinner, setLoadingSpinner] = useState(false);
 
   const loginRequest = async (id, passwd) => {
@@ -45,6 +51,8 @@ function Login(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const id = idRef.current.value;
+    const passwd = passwdRef.current.value;
     loginRequest(id, passwd);
   };
 
@@ -54,20 +62,9 @@ function Login(props) {
         <h3 className="LoginFormTitle">형제물류 네트워크</h3>
         <div className="LoginContent">
           <label htmlFor="id">아이디</label>
-          <input
-            value={id}
-            onChange={(e) => {
-              setId(e.target.value);
-            }}
-          ></input>
+          <input ref={idRef}></input>
           <label htmlFor="passwd">비밀번호</label>
-          <input
-            value={passwd}
-            onChange={(e) => {
-              setPasswd(e.target.value);
-            }}
-            type="password"
-          ></input>
+          <input ref={passwdRef} type="password"></input>
           <button className="login_btn" type="submit">
             로그인
           </button>
