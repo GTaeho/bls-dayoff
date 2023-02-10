@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+
+import { useState } from "react";
+import Login from "./component/Login.js";
+import Signup from "./component/Signup.js";
+import MyCalendar from "./MyCalendar.js";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [currentForm, setCurrentFrom] = useState("dayoffCal");
+  const [accessToken, setAccessToken] = useState("");
+
+  const toggleForm = (form) => {
+    setCurrentFrom(form);
+  };
+
+  if (currentForm === "login") {
+    return (
+      <div className="App">
+        <Login onFormSwitch={toggleForm} />
+      </div>
+    );
+  } else if (currentForm === "signup") {
+    return (
+      <div className="App">
+        <Signup onFormSwitch={toggleForm} />
+      </div>
+    );
+  } else if (currentForm === "dayoffCal") {
+    return (
+      <div>
+        <MyCalendar onFormSwitch={toggleForm} />
+      </div>
+    );
+  }
 }
 
 export default App;

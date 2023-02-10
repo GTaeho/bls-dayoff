@@ -1,0 +1,19 @@
+/* 부트스트랩 기본 css에서는 모든 a 테그는 밑줄이 그어짐. 여기서 삭제 */
+a {
+  color: black;
+  text-decoration: none;
+}
+
+/* 요일은 좀 진하게 */
+table.fc-col-header {
+  font-size: larger;
+}
+
+/* 일요일은 빨간색 */
+th.fc-col-header-cell.fc-day.fc-day-sun a {
+  color: red;
+}
+
+a.dayoff_guide {
+  margin: 0 auto;
+}
