@@ -12,6 +12,7 @@ import "./MyCalendar.css";
 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 function MyCalendar(props) {
   const [showModal, setShowModal] = useState(false);
@@ -256,7 +257,8 @@ function MyCalendar(props) {
 
         <Modal.Body>
           <p>
-            {editDayoffInfo.name}님의 {editDayoffInfo.oldDate} 의 휴무를 {editDayoffInfo.newDate} 로 바꾸시겠습니까?
+            {editDayoffInfo.name}님의 {editDayoffInfo.oldDate} 의 휴무를{" "}
+            {editDayoffInfo.newDate} 로 바꾸시겠습니까?
           </p>
         </Modal.Body>
 
@@ -272,7 +274,17 @@ function MyCalendar(props) {
       {/* 휴무수정 확인 모달 영역 끝 */}
 
       <div className="mypage-body">
-        <p id="header">형제물류 휴무관리</p>
+        <Navbar>
+          <Container>
+            <Navbar.Brand href="#home">형제물류 휴무관리</Navbar.Brand>
+            <Nav>
+              <NavDropdown id="nav-dropdown" title={name} menuVariant="dark">
+                <NavDropdown.Item>로그아웃</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Container>
+        </Navbar>
+        {/* <p id="header">형제물류 휴무관리</p> */}
         <div className="body-wrapper box">
           <div className="body-info-container">
             <div className="calendar-wrapper">
@@ -297,8 +309,6 @@ function MyCalendar(props) {
                     oldDate: oldDateString,
                     newDate: newDateString,
                   });
-
-                  console.info(editDayoffInfo);
 
                   handleShowEditModal();
                 }}
