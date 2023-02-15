@@ -13,12 +13,14 @@ import "./MyCalendar.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Container, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import UserTable from "./component/UserTable";
 
 function MyCalendar(props) {
   const [showModal, setShowModal] = useState(false);
   const [showManagerModal, setShowManagerModal] = useState(false);
   const [showDayoffCancelModal, setShowDayoffcancelModel] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showAdminModal, setShowAdminModal] = useState(false);
   const [managerFillInStatus, setManagerFillInStatus] = useState("");
   const [dateString, setDateString] = useState("");
   const [editDayoffInfo, setEditDayoffInfo] = useState({
@@ -48,6 +50,8 @@ function MyCalendar(props) {
   const handleManagerFillInStatus = (e) => {
     setManagerFillInStatus(e.target.value);
   };
+  const handleShowAdminModal = () => setShowAdminModal(true);
+  const handleCloseAdminModal = () => setShowAdminModal(false);
 
   const titleFomat = {
     month: "short",
@@ -440,6 +444,25 @@ function MyCalendar(props) {
       </Modal>
       {/* 휴무수정 확인 모달 영역 끝 */}
 
+      {/* 사용자 관리화면 모달 시작 */}
+      <Modal show={showAdminModal} onHide={handleCloseAdminModal}>
+        <Modal.Header closeButton>관리자 화면</Modal.Header>
+
+        <Modal.Body>
+          <UserTable />
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseAdminModal}>
+            변경취소
+          </Button>
+          <Button variant="primary" onClick={() => {}}>
+            변경사항 적용
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* 사용자 관리화면 모달 끝 */}
+
       <div className="mypage-body">
         <Navbar>
           <Container>
@@ -457,7 +480,11 @@ function MyCalendar(props) {
               ) : (
                 <NavDropdown id="nav-dropdown" title={name} menuVariant="dark">
                   {type === "teamleader" || type === "developer" ? (
-                    <NavDropdown.Item onClick={() => {}}>
+                    <NavDropdown.Item
+                      onClick={() => {
+                        handleShowAdminModal();
+                      }}
+                    >
                       관리화면
                     </NavDropdown.Item>
                   ) : (
