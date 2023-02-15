@@ -30,12 +30,12 @@ function Signup(props) {
       });
 
       const data = await resp.json();
-      console.log(`signup data : ${data}`);
+      console.log(`signup data : ${JSON.stringify(data)}`);
       if (data.result === "ok") {
         // result.message에 사용자 등록 완료됬다는 메세지 나오면
         // 프롬프트 같은거 있어서 띄우면 좋겠다.
         // 여기에 프롬프트 코드 띄우기
-        alert("");
+        alert(data.message);
 
         // 그리고 나서는 로그인 페이지로 바로 이동해서 사용자가 로그인 할 수 있게
         props.onFormSwitch("login");
@@ -43,6 +43,7 @@ function Signup(props) {
         // 가입하려는 아이디가 존재하는 경우에 data.result === "error" 가 나온다.
         // 경고나 에러 프롬프트 띄워서 data.message 내용을 띄우면 좋겠다
         // 여기에 에러 프롬프트 띄워서 data.message 내용 출력하는 코드 쓰기
+        alert(data.message);
       }
     } else {
       console.error("아이디나 비번이 입력되지 않았습니다.");

@@ -36,10 +36,15 @@ function Login(props) {
       const loginResult = serverResponse.result;
       if (loginResult === "ok") {
         const acquiredAccessToken = serverResponse.accessToken;
-        console.log(`AccessToken acquired : ${acquiredAccessToken}`);
-        const name = serverResponse.name;
+        // console.log(`AccessToken acquired : ${acquiredAccessToken}`);
         localStorage.setItem("accessToken", acquiredAccessToken);
+
+        const name = serverResponse.name;
         localStorage.setItem("name", name);
+
+        const type = serverResponse.type;
+        localStorage.setItem("type", type);
+
         props.onFormSwitch("dayoffCal");
       } else {
         alert(serverResponse.message);
