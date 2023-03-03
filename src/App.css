@@ -81,6 +81,16 @@ button {
   height: 100vh;
 }
 
+.fc-daygrid-body tr {
+  height: 280px;
+}
+
+.user-table-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 #dayoffTitleName {
   font-weight: bold;
   font-size: 130%;

@@ -36,7 +36,7 @@ function MyCalendar(props) {
   // 캘린더 레퍼런스 잡기
   const calRef = useRef();
 
-  // 관리자 권한 휴무생성 휴무자 이름 Form.Contro ref 잡기
+  // 관리자 권한 휴무생성 휴무자 이름 Form.Control ref 잡기
   const fillinNameRef = useRef();
 
   const handleShowModal = () => setShowModal(true);
@@ -90,7 +90,7 @@ function MyCalendar(props) {
     setName(nameFromServer);
 
     const userType = localStorage.getItem("type");
-    console.log(`userType : ${userType}`);
+    // console.log(`userType : ${userType}`);
     setType(userType);
   }, []);
 
@@ -448,8 +448,8 @@ function MyCalendar(props) {
       <Modal show={showAdminModal} onHide={handleCloseAdminModal}>
         <Modal.Header closeButton>관리자 화면</Modal.Header>
 
-        <Modal.Body>
-          <UserTable />
+        <Modal.Body className="user-table-container">
+          <UserTable token={accessToken} />
         </Modal.Body>
 
         <Modal.Footer>
@@ -518,10 +518,10 @@ function MyCalendar(props) {
                 // }}
                 eventDrop={handleEventDrop}
                 initialView="dayGrid"
-                duration={{ weeks: 3 }}
+                duration={{ weeks: 4 }}
                 headerToolbar={headerToolbarSetting}
-                height="100%"
-                // contentHeight={320}
+                height="100vh"
+                // contentHeight={1400}
                 dateClick={handleDateClickEvent}
                 // dayCellContent={renderDaycellContent}
                 dayHeaderFormat={dateHeaderFormat}
